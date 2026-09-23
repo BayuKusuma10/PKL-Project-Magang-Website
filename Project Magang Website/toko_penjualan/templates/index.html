@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INC.85 ASIA - PREMIUM STORE</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
+        .social-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background-color: white; color: #ef4444; border-radius: 50%; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .social-icon:hover { transform: scale(1.15); box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .card-hover-effect:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body class="relative text-gray-800">
+
+    <nav class="bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg sticky top-0 z-40 relative">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between gap-3 md:gap-4">
+            <div class="flex items-center gap-3 md:gap-4 shrink-0">
+                <div class="relative group cursor-pointer w-10 h-10 rounded-full border-2 border-white/50 bg-white flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                    <img id="nav-custom-logo" src="" class="w-full h-full object-cover hidden">
+                    <i id="nav-logo-icon" class="fa-solid fa-store text-red-500 text-lg"></i>
+                    <label class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                        <i class="fa-solid fa-camera text-white text-sm"></i>
+                        <input type="file" class="hidden" accept="image/*" onchange="uploadLogo(this)">
+                    </label>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-wide whitespace-nowrap" onclick="navigate('home')">INC.85ASIA STORE</h1>
+                
+                <div class="flex items-center gap-2 border-l border-white/30 pl-3 md:pl-4">
+                    <span id="nav-follow-text" class="text-sm font-medium hidden sm:block whitespace-nowrap">Ikuti kami di</span>
+                    <a href="https://facebook.com" target="_blank" class="social-icon shrink-0"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+                    <a href="https://instagram.com/bayyz_10" target="_blank" class="social-icon shrink-0"><i class="fa-brands fa-instagram text-xs"></i></a>
+                    <a href="#" target="_blank" class="social-icon shrink-0"><i class="fa-solid fa-graduation-cap text-xs"></i></a>
+                </div>
+
+                <div class="relative ml-1 border-l border-white/30 pl-3 md:pl-4 flex items-center">
+                    <button id="globe-btn" onclick="toggleLanguageMenu()" class="text-white hover:text-gray-200 transition focus:outline-none p-1.5 rounded-full hover:bg-red-700/50">
+                        <i class="fa-solid fa-globe text-xl"></i>
+                    </button>
+                    <div id="language-menu" class="hidden absolute top-full left-0 mt-3 w-44 bg-white rounded-xl shadow-xl overflow-hidden z-50 py-2 border border-gray-100">
+                        <button onclick="changeLanguage('id')" class="w-full text-left px-5 py-2.5 hover:bg-red-50 hover:text-red-600 font-semibold text-gray-700 text-sm">🇮🇩 Bahasa Indonesia</button>
+                        <button onclick="changeLanguage('en')" class="w-full text-left px-5 py-2.5 hover:bg-red-50 hover:text-red-600 font-semibold text-gray-700 text-sm">🇬🇧 English</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nav-links" class="hidden font-medium text-sm flex items-center gap-4 md:gap-6 shrink-0">
+                <button onclick="navigate('home')" class="hover:text-red-200 transition whitespace-nowrap" id="nav-home">Beranda</button>
+                <button onclick="navigate('products')" class="hover:text-red-200 transition whitespace-nowrap" id="nav-prod">Produk</button>
+                <button onclick="navigate('orders')" class="hover:text-red-200 transition whitespace-nowrap" id="nav-hist">Riwayat</button>
+                
+                <button id="nav-cart-btn" onclick="navigate('cart')" class="hover:text-red-200 transition relative p-1 mx-1" title="Keranjang Belanja">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i> 
+                    <span id="cart-count" class="hidden absolute -top-1.5 -right-2.5 bg-white text-red-600 min-w-[20px] h-[20px] flex items-center justify-center px-1 rounded-full text-[11px] font-extrabold shadow-md border border-red-200">0</span>
+                </button>
+                
+                <button onclick="navigate('profile')" class="hover:text-red-100 transition border border-white/50 pl-1.5 pr-3 py-1 rounded-full bg-red-700/30 flex items-center gap-2 shadow-sm ml-1 whitespace-nowrap">
+                    <img id="nav-avatar" src="https://ui-avatars.com/api/?name=User&background=fff&color=ef4444" alt="Avatar" class="w-7 h-7 rounded-full object-cover border-2 border-white bg-white shrink-0">
+                    <span id="nav-prof" class="hidden sm:block">Profil Akun</span>
+                </button>
+            </div>
+            
+            <div id="nav-login" class="shrink-0">
+                <button onclick="navigate('login')" class="bg-white text-red-600 px-5 py-1.5 rounded-lg font-bold hover:bg-gray-100 transition shadow text-sm whitespace-nowrap" id="nav-btn-login">Login Akun</button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app-content" class="container mx-auto mt-8 p-6 bg-white shadow-xl rounded-2xl min-h-[500px] mb-20 border border-gray-100"></main>
+
+    <button onclick="navigate('contact')" class="fixed bottom-6 right-6 bg-gradient-to-r from-red-600 to-red-500 text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 hover:shadow-red-500/50 transition-all z-50 flex items-center justify-center gap-3 border border-red-400 group cursor-pointer">
+        <i class="fa-solid fa-headset text-2xl group-hover:rotate-12 transition-transform"></i>
+        <span class="font-bold text-sm hidden md:block whitespace-nowrap" id="float-contact-text">Pusat Bantuan</span>
+    </button>
+
+    <div id="google-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-sm w-full mx-4 transform transition-all">
+            <h3 class="text-xl font-bold mb-2 flex items-center gap-3 text-gray-800">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-6 h-6 shrink-0"> 
+                <span id="txt-modal-title">Simulasi Login Gmail</span>
+            </h3>
+            <p class="text-gray-500 text-sm mb-6" id="txt-modal-desc">Masukkan sembarang email Gmail untuk melanjutkan.</p>
+            <input type="email" id="google-email-input" placeholder="contoh@gmail.com" class="w-full border border-gray-300 p-3 rounded-xl mb-6 focus:outline-red-500 bg-gray-50 focus:bg-white transition">
+            <div class="flex justify-end gap-3">
+                <button onclick="closeGoogleModal()" class="px-5 py-2.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-xl transition font-bold" id="txt-modal-cancel">Batal</button>
+                <button onclick="processGoogleLogin()" class="px-5 py-2.5 bg-red-600 text-white rounded-xl hover:bg-red-700 transition font-bold shadow-md" id="txt-modal-continue">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const i18n = {
+            id: {
+                nav_follow: "Ikuti kami di", nav_home: "Beranda", nav_prod: "Produk",  
+                nav_hist: "Riwayat", float_cont: "Pusat Bantuan", nav_prof: "Profil Akun", nav_login: "Login Akun",
+                home_hello: "Halo", home_welcome: "Selamat Datang di pusat belanja terbaik dan terpercaya.", home_btn: "Mulai Belanja Sekarang",
+                prod_title: "Katalog Produk", prod_search: "Cari nama atau deskripsi produk...", prod_add_title: "Tambah Produk Jualan",
+                prod_name: "Nama Produk", prod_desc: "Deskripsi Produk", prod_price: "Harga (Contoh: 15000)", 
+                prod_upload_img: "Upload Gambar Produk", prod_btn_upload: "Upload ke Toko", prod_btn_buy: "Beli", prod_not_found: "Produk tidak ditemukan.",
+                prod_tab_all: "Semua Toko", prod_tab_t1: "Toko 1 (Kerajinan Tangan)", prod_tab_t2: "Toko 2 (Kuliner)", prod_select_store: "Pilih Toko Jualan",
+                cart_title: "Keranjang Belanja", cart_empty: "Keranjang masih kosong. Yuk belanja!", cart_cancel: "Batal",
+                cart_subtotal: "Total Harga Barang", cart_shipping: "Ongkos Kirim (20%)", cart_grandtotal: "Total Tagihan", 
+                cart_address: "Alamat Pengiriman", cart_proof: "Upload Bukti Transfer",
+                cart_method: "Pilih Metode Pembayaran", cart_btn_co: "Checkout Sekarang",
+                ord_title: "Riwayat Pemesanan", ord_empty: "Belum ada riwayat pesanan.", ord_success: "Pesanan Sukses",
+                ord_item: "Barang yang dibeli", ord_address: "Alamat Pengiriman", ord_proof_btn: "Lihat Bukti Transfer", ord_no_proof: "Belum upload bukti",
+                ord_method: "Metode Pembayaran", ord_total: "Total Tagihan",
+                prof_title: "Profil Akun", prof_change_pic: "Ganti Foto Profil", prof_uname: "Username (Bawaan)",
+                prof_fullname: "Nama Lengkap", prof_email: "Email", prof_phone: "Nomor Telepon", prof_address: "Alamat Rumah",
+                prof_btn_save: "Simpan Perubahan", prof_btn_logout: "Keluar Akun (Logout)",
+                log_title: "Login Akun", log_desc: "Masuk untuk mulai berbelanja", log_user: "Username", log_pass: "Password",
+                log_btn: "Masuk Sekarang", log_or: "ATAU", log_gmail: "Lanjutkan dengan Gmail", 
+                log_no_acc: "Belum punya akun?", log_reg_here: "Daftar di sini",
+                reg_title: "Daftar Akun Baru", reg_btn: "Daftar Sekarang", reg_has_acc: "Sudah punya akun?", reg_log_here: "Login di sini"
+            },
+            en: {
+                nav_follow: "Follow us on", nav_home: "Home", nav_prod: "Products",  
+                nav_hist: "Orders", float_cont: "Help Center", nav_prof: "My Profile", nav_login: "Login Account",
+                home_hello: "Hello", home_welcome: "Welcome to the best and trusted shopping center.", home_btn: "Start Shopping Now",
+                prod_title: "Product Catalog", prod_search: "Search product name or description...", prod_add_title: "Add New Product",
+                prod_name: "Product Name", prod_desc: "Product Description", prod_price: "Price (e.g. 15000)", 
+                prod_upload_img: "Upload Product Image", prod_btn_upload: "Upload to Store", prod_btn_buy: "Buy", prod_not_found: "Product not found.",
+                prod_tab_all: "All Stores", prod_tab_t1: "Store 1 (Handicrafts)", prod_tab_t2: "Store 2 (cuisine)", prod_select_store: "Select Store",
+                cart_title: "Shopping Cart", cart_empty: "Your cart is empty. Let's shop!", cart_cancel: "Cancel",
+                cart_subtotal: "Items Subtotal", cart_shipping: "Shipping Cost (20%)", cart_grandtotal: "Grand Total",
+                cart_address: "Delivery Address", cart_proof: "Upload Payment Proof",
+                cart_method: "Select Payment Method", cart_btn_co: "Checkout Now",
+                ord_title: "Order History", ord_empty: "No order history yet.", ord_success: "Order Success",
+                ord_item: "Purchased Items", ord_address: "Delivery Address", ord_proof_btn: "View Payment Proof", ord_no_proof: "No proof uploaded",
+                ord_method: "Payment Method", ord_total: "Total Amount",
+                prof_title: "Account Profile", prof_change_pic: "Change Profile Picture", prof_uname: "Username (Default)",
+                prof_fullname: "Full Name", prof_email: "Email", prof_phone: "Phone Number", prof_address: "Home Address",
+                prof_btn_save: "Save Changes", prof_btn_logout: "Logout Account",
+                log_title: "Account Login", log_desc: "Sign in to start shopping", log_user: "Username", log_pass: "Password",
+                log_btn: "Sign In Now", log_or: "OR", log_gmail: "Continue with Gmail", 
+                log_no_acc: "Don't have an account?", log_reg_here: "Register here",
+                reg_title: "Register New Account", reg_btn: "Register Now", reg_has_acc: "Already have an account?", reg_log_here: "Login here"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language');
+        if (currentLang !== 'id' && currentLang !== 'en') { currentLang = 'id'; }
+        let currentPage = 'login'; 
+        let currentStoreFilter = 'Semua';
+        let siteLogoPic = '';
+
+        const t = (key) => i18n[currentLang][key] || key;
+
+        function toggleLanguageMenu() { document.getElementById('language-menu').classList.toggle('hidden'); }
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('language-menu');
+            const globeBtn = document.getElementById('globe-btn');
+            if (menu && globeBtn && !globeBtn.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        function changeLanguage(langCode) {
+            currentLang = langCode; localStorage.setItem('language', langCode);
+            document.getElementById('language-menu').classList.add('hidden');
+            
+            document.getElementById('nav-follow-text').innerText = t('nav_follow');
+            document.getElementById('nav-home').innerText = t('nav_home');
+            document.getElementById('nav-prod').innerText = t('nav_prod');
+            document.getElementById('nav-cart-btn').title = t('cart_title'); 
+            document.getElementById('nav-hist').innerText = t('nav_hist');
+            document.getElementById('float-contact-text').innerText = t('float_cont'); 
+            document.getElementById('nav-prof').innerText = t('nav_prof');
+            document.getElementById('nav-btn-login').innerText = t('nav_login');
+            
+            navigate(currentPage);
+        }
+
+        let isLoggedIn = false;
+        let currentUser = null; 
+        let profileData = {};
+        let products = [];
+        let cart = [];
+        let orders = [];
+
+        async function loadData() {
+            try {
+                let logoRes = await fetch('/api/logo');
+                let logoData = await logoRes.json();
+                siteLogoPic = logoData.logo_pic;
+                updateSiteLogo();
+
+                if (!currentUser) return;
+                
+                let prodRes = await fetch('/api/products');
+                products = await prodRes.json();
+                let cartRes = await fetch(`/api/cart/${currentUser.id}`);
+                cart = await cartRes.json(); updateCartCount(); 
+                let ordRes = await fetch(`/api/orders/${currentUser.id}`);
+                orders = await ordRes.json();
+                let profRes = await fetch(`/api/profile/${currentUser.id}`);
+                profileData = await profRes.json();
+                
+                updateNavbarAvatar(); 
+            } catch (err) { console.error("Gagal memuat data:", err); }
+        }
+
+        function updateSiteLogo() {
+            const logoImg = document.getElementById('nav-custom-logo');
+            const logoIcon = document.getElementById('nav-logo-icon');
+            if (siteLogoPic) {
+                logoImg.src = `/static/uploads/${siteLogoPic}`;
+                logoImg.classList.remove('hidden');
+                logoIcon.classList.add('hidden');
+            } else {
+                logoImg.classList.add('hidden');
+                logoIcon.classList.remove('hidden');
+            }
+        }
+
+        async function uploadLogo(input) {
+            if(!input.files[0]) return;
+            let formData = new FormData();
+            formData.append('logo', input.files[0]);
+            await fetch('/api/logo', { method: 'POST', body: formData });
+            await loadData();
+        }
+
+        function updateNavbarAvatar() {
+            const navAvatar = document.getElementById('nav-avatar');
+            if (!navAvatar || !profileData) return;
+            if (profileData.profile_pic) {
+                navAvatar.src = `/static/uploads/${profileData.profile_pic}`;
+            } else {
+                const fallbackName = profileData.name || currentUser.username || 'User';
+                navAvatar.src = `https://ui-avatars.com/api/?name=${fallbackName}&background=fff&color=ef4444&rounded=true&bold=true`;
+            }
+        }
+
+        async function navigate(page) {
+            try {
+                currentPage = page; 
+                const content = document.getElementById('app-content');
+                
+                if (!isLoggedIn && page !== 'login' && page !== 'register') { page = 'login'; currentPage = 'login'; }
+                
+                document.getElementById('nav-links').style.display = isLoggedIn ? 'flex' : 'none';
+                document.getElementById('nav-login').style.display = isLoggedIn ? 'none' : 'block';
+                await loadData(); 
+
+                if (page === 'login') content.innerHTML = renderLogin();
+                else if (page === 'register') content.innerHTML = renderRegister();
+                else if (page === 'home') content.innerHTML = renderHome();
+                else if (page === 'products') { content.innerHTML = renderProductsLayout(); handleSearch(); }
+                else if (page === 'cart') content.innerHTML = renderCart();
+                else if (page === 'orders') content.innerHTML = renderOrders();
+                else if (page === 'contact') content.innerHTML = renderContact();
+                else if (page === 'profile') content.innerHTML = renderProfile();
+            } catch (error) {
+                console.error("Navigation error:", error);
+                alert("Terjadi kesalahan sistem: " + error.message);
+            }
+        }
+
+        function setStoreFilter(storeName) { currentStoreFilter = storeName; navigate('products'); }
+
+        function handleSearch() {
+            const searchInput = document.getElementById('search-input');
+            const query = searchInput ? searchInput.value.toLowerCase() : '';
+            
+            let filteredProducts = products.filter(p => {
+                const matchSearch = p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query);
+                const matchStore = currentStoreFilter === 'Semua' || p.store_name === currentStoreFilter;
+                return matchSearch && matchStore;
+            });
+            
+            // FITUR MENGURUTKAN HARGA MAHAL KE MURAH (DESCENDING)
+            filteredProducts.sort((a, b) => b.price - a.price);
+
+            renderProductCards(filteredProducts);
+        }
+
+        function renderProductCards(productList) {
+            const grid = document.getElementById('product-grid');
+            if (productList.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10">${t('prod_not_found')}</div>`;
+                return;
+            }
+            let productHtml = productList.map(p => {
+                let imgSrc = p.image.startsWith('http') ? p.image : `/static/uploads/${p.image}`;
+                return `
+                <div class="card-hover-effect border border-gray-100 p-5 rounded-2xl bg-white flex flex-col justify-between transition duration-300 relative">
+                    <span class="absolute top-2 right-2 bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded shadow-sm z-10 border border-red-200">${p.store_name}</span>
+                    <div>
+                        <div class="overflow-hidden rounded-xl mb-4 border border-gray-50 relative group mt-3">
+                            <img src="${imgSrc}" alt="${p.name}" class="w-full h-48 object-cover transform group-hover:scale-110 transition duration-500">
+                        </div>
+                        <h3 class="font-bold text-xl text-gray-800">${p.name}</h3>
+                        <p class="text-gray-500 text-sm mb-3 mt-1 line-clamp-2">${p.desc}</p>
+                    </div>
+                    <div>
+                        <p class="font-extrabold text-red-600 text-2xl mb-4">Rp ${p.price.toLocaleString('id-ID')}</p>
+                        <div class="flex gap-2">
+                            <button onclick="addToCart(${p.id})" class="bg-red-600 text-white px-4 py-2 rounded-xl w-full hover:bg-red-700 font-bold shadow-md transition"><i class="fa-solid fa-cart-plus mr-1"></i> ${t('prod_btn_buy')}</button>
+                            <button onclick="deleteProduct(${p.id})" class="bg-gray-100 text-gray-600 px-4 py-2 rounded-xl hover:bg-red-100 hover:text-red-600 transition font-bold" title="Hapus Produk"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            grid.innerHTML = productHtml;
+        }
+
+        function renderProductsLayout() {
+            return `
+                <div>
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2"><i class="fa-solid fa-store text-red-500"></i> ${t('prod_title')}</h2>
+                        <div class="relative w-full md:w-96">
+                            <i class="fa-solid fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="${t('prod_search')}" class="w-full border border-gray-300 pl-11 p-3 rounded-full bg-gray-50 focus:outline-red-500 focus:bg-white transition shadow-sm">
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-3 mb-6 overflow-x-auto no-scrollbar pb-2">
+                        <button onclick="setStoreFilter('Semua')" class="${currentStoreFilter === 'Semua' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} px-5 py-2 rounded-full font-bold text-sm transition shrink-0">${t('prod_tab_all')}</button>
+                        <button onclick="setStoreFilter('Toko 1')" class="${currentStoreFilter === 'Toko 1' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} px-5 py-2 rounded-full font-bold text-sm transition shrink-0">${t('prod_tab_t1')}</button>
+                        <button onclick="setStoreFilter('Toko 2')" class="${currentStoreFilter === 'Toko 2' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} px-5 py-2 rounded-full font-bold text-sm transition shrink-0">${t('prod_tab_t2')}</button>
+                    </div>
+
+                    <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"></div>
+                    
+                    <hr class="my-8 border-gray-200">
+                    <h2 class="text-xl font-bold mb-4 text-gray-800 flex items-center gap-2"><i class="fa-solid fa-box-open text-red-500"></i> ${t('prod_add_title')}</h2>
+                    <div class="flex flex-col gap-4 max-w-md bg-gray-50 p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <label class="text-sm font-bold text-gray-700 -mb-2">${t('prod_select_store')}:</label>
+                        <select id="new-prod-store" class="border border-gray-300 p-3 rounded-xl focus:outline-red-500 bg-white">
+                            <option value="Toko 1">${t('prod_tab_t1')}</option>
+                            <option value="Toko 2">${t('prod_tab_t2')}</option>
+                        </select>
+                        <input type="text" id="new-prod-name" placeholder="${t('prod_name')}" class="border border-gray-300 p-3 rounded-xl focus:outline-red-500">
+                        <textarea id="new-prod-desc" placeholder="${t('prod_desc')}" class="border border-gray-300 p-3 rounded-xl focus:outline-red-500"></textarea>
+                        <input type="number" id="new-prod-price" placeholder="${t('prod_price')}" class="border border-gray-300 p-3 rounded-xl focus:outline-red-500">
+                        <div>
+                            <label class="text-sm font-semibold text-gray-600 block mb-1"><i class="fa-solid fa-image"></i> ${t('prod_upload_img')}</label>
+                            <input type="file" id="new-prod-image" accept="image/*" class="w-full border border-gray-300 p-2 rounded-xl bg-white text-sm">
+                        </div>
+                        <button onclick="addProduct()" class="bg-red-500 text-white p-3 mt-2 rounded-xl hover:bg-red-600 font-bold shadow-md transition">${t('prod_btn_upload')}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHome() {
+            return `
+                <div class="text-center mt-12 py-10">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">${t('home_hello')}, <span class="text-red-600">${profileData.name || currentUser.username}</span>!</h2>
+                    <p class="text-gray-500 text-xl mb-8">${t('home_welcome')}</p>
+                    <button onclick="navigate('products')" class="bg-red-600 text-white px-8 py-4 rounded-full hover:shadow-lg hover:scale-105 transition transform font-bold text-lg"><i class="fa-solid fa-bag-shopping mr-2"></i> ${t('home_btn')}</button>
+                </div>
+            `;
+        }
+
+        function renderLogin() {
+            return `
+                <div class="max-w-md mx-auto mt-10 p-8 border rounded-3xl shadow-lg bg-white relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-red-500"></div>
+                    <div class="text-center mb-8 mt-2">
+                        <div class="bg-red-50 text-red-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fa-solid fa-user-lock text-4xl"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">${t('log_title')}</h2>
+                        <p class="text-gray-500 text-sm mt-1">${t('log_desc')}</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <input type="text" id="log-user" placeholder="${t('log_user')}" class="border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 bg-gray-50 focus:bg-white transition" value="admin">
+                        <input type="password" id="log-pass" placeholder="${t('log_pass')}" class="border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 bg-gray-50 focus:bg-white transition" value="12345">
+                        <button id="btn-login" onclick="login()" class="bg-red-600 text-white p-4 rounded-xl hover:bg-red-700 font-bold shadow-md transition text-lg mt-2">${t('log_btn')}</button>
+                        <div class="flex items-center my-4"><hr class="flex-grow border-gray-200"><span class="px-4 text-gray-400 text-xs font-bold tracking-wider">${t('log_or')}</span><hr class="flex-grow border-gray-200"></div>
+                        <button onclick="openGoogleModal()" class="w-full bg-white border-2 border-gray-200 text-gray-700 p-4 rounded-xl hover:bg-gray-50 font-bold transition flex justify-center items-center gap-3"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" class="w-5 h-5 shrink-0">${t('log_gmail')}</button>
+                        <p class="text-sm text-center mt-6 text-gray-600">${t('log_no_acc')} <button onclick="navigate('register')" class="text-red-600 font-bold hover:underline">${t('log_reg_here')}</button></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRegister() {
+            return `
+                <div class="max-w-md mx-auto mt-10 p-8 border rounded-3xl shadow-lg bg-white relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-green-500"></div>
+                    <div class="text-center mb-8 mt-2"><h2 class="text-3xl font-bold text-gray-800">${t('reg_title')}</h2></div>
+                    <div class="flex flex-col gap-4">
+                        <input type="text" id="reg-user" placeholder="${t('log_user')}" class="border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-50 focus:bg-white transition">
+                        <input type="password" id="reg-pass" placeholder="${t('log_pass')}" class="border border-gray-300 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 bg-gray-50 focus:bg-white transition">
+                        <button onclick="register()" class="bg-green-500 text-white p-4 rounded-xl hover:bg-green-600 font-bold shadow-md transition text-lg mt-2">${t('reg_btn')}</button>
+                        <p class="text-sm text-center mt-6 text-gray-600">${t('reg_has_acc')} <button onclick="navigate('login')" class="text-green-600 font-bold hover:underline">${t('reg_log_here')}</button></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCart() {
+            if (cart.length === 0) return `<div class="text-center mt-12"><i class="fa-solid fa-cart-arrow-down text-6xl text-gray-300 mb-4"></i><h2 class="text-xl text-gray-500">${t('cart_empty')}</h2></div>`;
+            
+            let totalBarang = 0;
+            let cartHtml = cart.map(item => {
+                totalBarang += item.price;
+                return `
+                    <div class="flex justify-between items-center border-b border-gray-200 py-4">
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-lg">${item.name}</h4>
+                            <p class="text-sm text-red-500 font-bold">Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 text-sm hover:underline font-bold bg-red-50 px-3 py-2 rounded-lg hover:bg-red-100 transition"><i class="fa-solid fa-xmark"></i> ${t('cart_cancel')}</button>
+                    </div>
+                `;
+            }).join('');
+            
+            let ongkir = totalBarang * 0.20; 
+            let grandTotal = totalBarang + ongkir;
+
+            return `
+                <div class="max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-red-500"></i> ${t('cart_title')}</h2>
+                    <div class="mb-6 bg-white p-5 border border-gray-100 rounded-2xl shadow-sm">${cartHtml}</div>
+                    
+                    <div class="mb-6 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                        <div class="flex justify-between mb-2 text-gray-600">
+                            <span>${t('cart_subtotal')}:</span>
+                            <span class="font-semibold">Rp ${totalBarang.toLocaleString('id-ID')}</span>
+                        </div>
+                        <div class="flex justify-between mb-4 text-gray-600 border-b border-gray-300 pb-4">
+                            <span>${t('cart_shipping')}:</span>
+                            <span class="font-semibold text-orange-500">+ Rp ${ongkir.toLocaleString('id-ID')}</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-bold text-lg text-gray-800">${t('cart_grandtotal')}:</span>
+                            <span class="font-extrabold text-3xl text-red-600">Rp ${grandTotal.toLocaleString('id-ID')}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6 bg-white p-6 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-4">
+                        <div>
+                            <label class="text-sm font-bold text-gray-700 block mb-2"><i class="fa-solid fa-location-dot text-red-500 mr-1"></i> ${t('cart_address')}: <span class="text-red-500">*</span></label>
+                            <textarea id="checkout-address" placeholder="Contoh: Jl. Candi Panggung, Malang, ID 65142..." class="w-full border border-gray-300 p-3 rounded-xl focus:outline-red-500 bg-gray-50 h-24">${profileData.address || ''}</textarea>
+                        </div>
+                        <div>
+                            <label class="text-sm font-bold text-gray-700 block mb-2"><i class="fa-solid fa-credit-card text-blue-500 mr-1"></i> ${t('cart_method')}:</label>
+                            <select id="payment-method" class="w-full border border-gray-300 p-3 rounded-xl bg-gray-50 focus:outline-red-500">
+                                <option value="Transfer Bank BCA (0123456789)">Transfer Bank BCA (0123456789)</option>
+                                <option value="Transfer Bank Mandiri (987654321)">Transfer Bank Mandiri (987654321)</option>
+                                <option value="GoPay (081234567890)">GoPay (081234567890)</option>
+                                <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-bold text-gray-700 block mb-2"><i class="fa-solid fa-receipt text-green-500 mr-1"></i> ${t('cart_proof')} (Opsional):</label>
+                            <input type="file" id="checkout-proof" accept="image/*" class="w-full border border-gray-300 p-2 rounded-xl bg-gray-50 text-sm">
+                        </div>
+                    </div>
+                    
+                    <button onclick="checkout()" class="w-full bg-green-500 text-white py-4 rounded-xl font-bold hover:bg-green-600 text-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1"><i class="fa-solid fa-paper-plane mr-2"></i> ${t('cart_btn_co')}</button>
+                </div>
+            `;
+        }
+
+        function renderOrders() {
+            if (orders.length === 0) return `<div class="text-center mt-12"><i class="fa-solid fa-receipt text-6xl text-gray-300 mb-4"></i><h2 class="text-xl text-gray-500">${t('ord_empty')}</h2></div>`;
+            let orderHtml = orders.map(ord => {
+                let date = new Date(ord.order_date).toLocaleString('id-ID', {day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+                let proofLink = ord.payment_proof 
+                    ? `<a href="/static/uploads/${ord.payment_proof}" target="_blank" class="text-blue-500 hover:underline font-bold text-xs"><i class="fa-solid fa-image mr-1"></i> ${t('ord_proof_btn')}</a>` 
+                    : `<span class="text-gray-400 text-xs italic">${t('ord_no_proof')}</span>`;
+
+                return `
+                <div class="border border-gray-200 p-6 rounded-2xl mb-6 shadow-sm bg-white hover:shadow-md transition relative">
+                    <button onclick="deleteOrder(${ord.id})" class="absolute top-4 right-4 text-red-400 hover:text-red-600 hover:bg-red-50 px-3 py-2 rounded-lg transition" title="Hapus Riwayat Ini"><i class="fa-solid fa-trash"></i></button>
+                    
+                    <div class="flex justify-between items-center mb-3 border-b border-gray-100 pb-3 pr-12">
+                        <span class="text-sm text-gray-500 font-semibold"><i class="fa-regular fa-clock"></i> ${date}</span>
+                        <span class="bg-green-100 text-green-700 text-xs px-3 py-1.5 rounded-full font-bold">${t('ord_success')}</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1">${t('ord_item')}:</p>
+                            <p class="font-bold text-gray-800 text-lg">${ord.items}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 mb-1"><i class="fa-solid fa-location-dot"></i> ${t('ord_address')}:</p>
+                            <p class="font-medium text-gray-700 text-sm bg-gray-50 p-2 rounded-lg border border-gray-100">${ord.address || '-'}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row justify-between items-end mt-4 border-t border-gray-100 pt-4">
+                        <div class="mb-3 md:mb-0 w-full md:w-auto">
+                            <p class="text-xs text-gray-500 mb-1">${t('ord_method')}</p>
+                            <p class="font-semibold text-sm text-gray-700 bg-gray-100 px-3 py-1 rounded-lg inline-block mb-1">${ord.payment_method}</p>
+                            <div class="mt-1">${proofLink}</div>
+                        </div>
+                        <div class="text-right w-full md:w-auto">
+                            <p class="text-xs text-gray-500 mb-1">${t('ord_total')}</p>
+                            <p class="font-extrabold text-red-600 text-2xl">Rp ${(ord.total_price + ord.shipping_cost).toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+            return `<div class="max-w-3xl mx-auto"><h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-red-500"></i> ${t('ord_title')}</h2><div>${orderHtml}</div></div>`;
+        }
+
+        function renderContact() {
+            return `
+                <div class="max-w-4xl mx-auto text-center mt-5">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">${t('float_cont')}</h2>
+                    <p class="text-gray-500 mb-10 text-lg">Punya pertanyaan atau kendala? Hubungi tim kami melalui platform di bawah ini:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <a href="https://wa.me/6282332830646?text=Halo%20Mas%20Azmy,%20saya%20ingin%20bertanya%20terkait%20INC%2085%20ASIA%20PREMIUM%20STORE." target="_blank" class="flex flex-col items-center p-8 bg-green-50 border border-green-100 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 text-green-600 hover:text-green-700 group"><i class="fa-brands fa-whatsapp text-6xl mb-4 group-hover:scale-110 transition"></i><span class="font-bold text-xl">WhatsApp</span><span class="text-sm mt-2 text-gray-500 font-medium">0823-3283-0646</span></a>
+                        <a href="mailto:bayuprimadutakusuma@gmail.com?subject=Tanya%20TokoKita" class="flex flex-col items-center p-8 bg-red-50 border border-red-100 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 text-red-600 hover:text-red-700 group"><i class="fa-regular fa-envelope text-6xl mb-4 group-hover:scale-110 transition"></i><span class="font-bold text-xl">Kirim Email</span><span class="text-sm mt-2 text-gray-500 font-medium line-clamp-1">bayuprimadutakusuma@gmail.com</span></a>
+                        <a href="https://instagram.com/bayyz_10" target="_blank" class="flex flex-col items-center p-8 bg-pink-50 border border-pink-100 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 text-pink-600 hover:text-pink-700 group"><i class="fa-brands fa-instagram text-6xl mb-4 group-hover:scale-110 transition"></i><span class="font-bold text-xl">Instagram</span><span class="text-sm mt-2 text-gray-500 font-medium">@bayyz_10</span></a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProfile() {
+            const fallbackName = profileData.name || currentUser.username || 'User';
+            let imgSrc = profileData.profile_pic ? `/static/uploads/${profileData.profile_pic}` : `https://ui-avatars.com/api/?name=${fallbackName}&background=fff&color=ef4444&rounded=true&bold=true`;
+
+            return `
+                <div class="max-w-md mx-auto p-8 border border-gray-100 rounded-3xl shadow-lg bg-white">
+                    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4 flex items-center gap-2">
+                        <i class="fa-regular fa-id-badge text-red-500"></i> ${t('prof_title')}
+                    </h2>
+                    <div class="flex flex-col items-center justify-center mb-6">
+                        <div class="relative group">
+                            <img id="profile-preview" src="${imgSrc}" class="w-28 h-28 rounded-full object-cover border-4 border-red-100 mb-3 shadow-sm bg-white">
+                        </div>
+                        <label class="text-sm font-semibold text-blue-600 cursor-pointer hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-camera"></i> ${t('prof_change_pic')}
+                            <input type="file" id="prof-image" accept="image/*" class="hidden" onchange="document.getElementById('profile-preview').src = window.URL.createObjectURL(this.files[0])">
+                        </label>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <div><label class="text-sm font-bold text-gray-600 ml-1">${t('prof_uname')}</label><input type="text" class="w-full border border-gray-200 p-4 rounded-xl bg-gray-100 mt-1 cursor-not-allowed text-gray-500 font-medium" value="${currentUser.username}" disabled></div>
+                        <div><label class="text-sm font-bold text-gray-600 ml-1">${t('prof_fullname')}</label><input type="text" id="prof-name" class="w-full border border-gray-300 p-4 rounded-xl mt-1 focus:outline-red-500 bg-gray-50 focus:bg-white transition" value="${profileData.name || currentUser.username}"></div>
+                        <div><label class="text-sm font-bold text-gray-600 ml-1">${t('prof_email')}</label><input type="email" id="prof-email" class="w-full border border-gray-300 p-4 rounded-xl mt-1 focus:outline-red-500 bg-gray-50 focus:bg-white transition" value="${profileData.email}"></div>
+                        <div><label class="text-sm font-bold text-gray-600 ml-1">${t('prof_phone')}</label><input type="text" id="prof-phone" class="w-full border border-gray-300 p-4 rounded-xl mt-1 focus:outline-red-500 bg-gray-50 focus:bg-white transition" value="${profileData.phone}"></div>
+                        <div>
+                            <label class="text-sm font-bold text-gray-600 ml-1">${t('prof_address')}</label>
+                            <textarea id="prof-address" class="w-full border border-gray-300 p-4 rounded-xl mt-1 focus:outline-red-500 bg-gray-50 focus:bg-white transition h-24">${profileData.address || ''}</textarea>
+                        </div>
+                        <button onclick="saveProfile()" class="mt-6 bg-blue-600 text-white p-4 rounded-xl hover:bg-blue-700 font-bold shadow-md transition text-lg"><i class="fa-solid fa-floppy-disk mr-2"></i> ${t('prof_btn_save')}</button>
+                        <button onclick="logout()" class="mt-2 bg-white border-2 border-red-500 text-red-600 p-3 rounded-xl hover:bg-red-50 font-bold shadow-sm transition"><i class="fa-solid fa-arrow-right-from-bracket mr-2"></i> ${t('prof_btn_logout')}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openGoogleModal() { document.getElementById('google-modal').classList.remove('hidden'); }
+        function closeGoogleModal() { document.getElementById('google-modal').classList.add('hidden'); document.getElementById('google-email-input').value = ""; }
+
+        async function processGoogleLogin() {
+            const email = document.getElementById('google-email-input').value;
+            if(!email || !email.includes('@')) return alert('Mohon masukkan alamat email yang valid.');
+            closeGoogleModal();
+            const username = email.split('@')[0]; const password = "google_auth_dummy_pwd"; 
+            try {
+                await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: username, password: password }) });
+                let res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: username, password: password }) });
+                let data = await res.json();
+                if (data.status === 'success') {
+                    currentUser = data.user; isLoggedIn = true;
+                    await fetch(`/api/profile/${currentUser.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: username, email: email, phone: currentUser.phone || '', address: currentUser.address || '' }) });
+                    navigate('home');
+                } else { alert("Sistem Google gagal memverifikasi."); }
+            } catch (err) { alert("Gagal terhubung ke Server!"); }
+        }
+
+        async function login() {
+            const user = document.getElementById('log-user').value; const pass = document.getElementById('log-pass').value;
+            if(!user || !pass) return alert("Isi Username dan Password!");
+            const btn = document.getElementById('btn-login'); btn.innerText = "Memproses..."; btn.disabled = true;
+            try {
+                let res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: user, password: pass }) });
+                if (!res.ok) throw new Error("Database error. Hapus file toko.db lalu restart app.py.");
+                let data = await res.json();
+                if (data.status === 'success') { currentUser = data.user; isLoggedIn = true; navigate('home'); } 
+                else { alert(data.message); btn.innerText = t('log_btn'); btn.disabled = false; }
+            } catch (err) { alert("ERROR: " + err.message); btn.innerText = t('log_btn'); btn.disabled = false; }
+        }
+
+        async function register() {
+            const user = document.getElementById('reg-user').value; const pass = document.getElementById('reg-pass').value;
+            if(!user || !pass) return alert("Isi Username dan Password!");
+            try {
+                let res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: user, password: pass }) });
+                let data = await res.json(); alert(data.message);
+                if (data.status === 'success') navigate('login');
+            } catch (err) { alert("ERROR: Gagal terhubung ke server."); }
+        }
+
+        function logout() { isLoggedIn = false; currentUser = null; cart = []; orders = []; navigate('login'); }
+
+        async function saveProfile() {
+            const name = document.getElementById('prof-name').value; const email = document.getElementById('prof-email').value; 
+            const phone = document.getElementById('prof-phone').value; const address = document.getElementById('prof-address').value;
+            const imageFile = document.getElementById('prof-image').files[0];
+            
+            let formData = new FormData();
+            formData.append('name', name); formData.append('email', email); formData.append('phone', phone); formData.append('address', address);
+            if (imageFile) formData.append('profile_pic', imageFile);
+            
+            await fetch(`/api/profile/${currentUser.id}`, { method: 'POST', body: formData });
+            alert("Profil berhasil diperbarui!"); await loadData(); navigate('profile'); 
+        }
+
+        async function addProduct() {
+            const store = document.getElementById('new-prod-store').value;
+            const name = document.getElementById('new-prod-name').value; const desc = document.getElementById('new-prod-desc').value; const price = document.getElementById('new-prod-price').value; const imageFile = document.getElementById('new-prod-image').files[0];
+            if (!name || !desc || !price) return alert("Wajib diisi!");
+            let formData = new FormData();
+            formData.append('store_name', store);
+            formData.append('name', name); formData.append('desc', desc); formData.append('price', price); if (imageFile) formData.append('image', imageFile);
+            await fetch('/api/products', { method: 'POST', body: formData });
+            alert("Produk berhasil ditambahkan!"); await loadData(); navigate('products');
+        }
+
+        async function deleteProduct(productId) {
+            if(confirm("Apakah kamu yakin ingin menghapus produk ini?")) { await fetch('/api/products', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ product_id: productId }) }); await loadData(); navigate('products'); }
+        }
+
+        async function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            await fetch(`/api/cart/${currentUser.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(product) });
+            await loadData(); navigate('products'); 
+        }
+
+        async function removeFromCart(cartId) {
+            await fetch(`/api/cart/${currentUser.id}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cart_id: cartId }) });
+            await loadData(); navigate('cart');
+        }
+
+        async function deleteOrder(orderId) {
+            if(confirm("Apakah Anda yakin ingin menghapus riwayat pesanan ini?")) { await fetch(`/api/order/${orderId}`, { method: 'DELETE' }); await loadData(); navigate('orders'); }
+        }
+
+        async function checkout() {
+            const paymentMethod = document.getElementById('payment-method').value;
+            const address = document.getElementById('checkout-address').value;
+            const proofFile = document.getElementById('checkout-proof').files[0];
+            if(!address) { return alert("Mohon lengkapi Alamat Pengiriman Anda!"); }
+
+            if(confirm(`Memproses pesanan untuk dikirim ke: ${address} ?`)) {
+                let formData = new FormData();
+                formData.append('payment_method', paymentMethod);
+                formData.append('address', address);
+                if(proofFile) formData.append('payment_proof', proofFile);
+
+                let res = await fetch(`/api/checkout/${currentUser.id}`, { method: 'POST', body: formData });
+                let data = await res.json();
+                if (data.status === 'success') { alert(`Pesanan Anda berhasil diproses!`); await loadData(); navigate('orders'); } 
+                else { alert(data.message); }
+            }
+        }
+
+        function updateCartCount() { 
+            const badge = document.getElementById('cart-count');
+            if (cart.length > 0) { badge.innerText = cart.length; badge.classList.remove('hidden'); } 
+            else { badge.classList.add('hidden'); }
+        }
+
+        changeLanguage(currentLang);
+        loadData(); 
+    </script>
+</body>
+</html>
